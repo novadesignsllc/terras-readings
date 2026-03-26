@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terra's Readings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1a1520;
+      --bg-card: #211c2b;
+      --bg-card2: #1e1929;
+      --accent: #c084fc;
+      --accent-btn: #a855f7;
+      --accent-btn-hover: #9333ea;
+      --gold: #d4a843;
+      --gold-light: #e8c96a;
+      --text: #e8e0f0;
+      --text-muted: #9b8fb0;
+      --border: #2e2640;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26, 21, 32, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 60px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.55rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--accent-btn);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--accent-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 7rem 1.5rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 55% at 50% 30%, rgba(168, 85, 247, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .celestial-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+    }
+
+    .celestial-label svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      background: linear-gradient(135deg, #f0e6ff 0%, #c084fc 45%, #e8b4f8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ── STARS ── */
+    .stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 0.75rem;
+    }
+
+    .stars svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--gold);
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1.4rem;
+    }
+
+    .testimonial-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-card .author {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .pricing-card {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 1.75rem 2.5rem;
+      position: relative;
+    }
+
+    .pricing-card.popular {
+      border-color: var(--accent-btn);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -0.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-btn);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.85rem;
+      border-radius: 999px;
+    }
+
+    .pricing-card .plan-icon {
+      margin-bottom: 0.6rem;
+    }
+
+    .pricing-card .plan-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--gold);
+    }
+
+    .pricing-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .pricing-card .plan-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .price .amount {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .price .per {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .feature-list li svg {
+      width: 13px;
+      height: 13px;
+      fill: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .pricing-card .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    footer .footer-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+    }
+
+    footer .footer-logo svg {
+      width: 15px;
+      height: 15px;
+      fill: var(--gold);
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ── ANIMATIONS ── */
+
+    /* Keyframes */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 1;   transform: scale(1); }
+      50%       { opacity: 0.3; transform: scale(0.6); }
+    }
+    @keyframes orbitGlow {
+      0%   { box-shadow: 0 0 0 0 rgba(168,85,247,0); }
+      50%  { box-shadow: 0 0 40px 8px rgba(168,85,247,0.18); }
+      100% { box-shadow: 0 0 0 0 rgba(168,85,247,0); }
+    }
+    @keyframes starPop {
+      0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+      60%  { transform: scale(1.3) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg);   opacity: 1; }
+    }
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes borderPulse {
+      0%, 100% { border-color: var(--accent-btn); }
+      50%       { border-color: #e879f9; box-shadow: 0 0 20px rgba(232,121,249,0.25); }
+    }
+
+    /* Hero entrance sequence */
+    .hero .celestial-label { animation: fadeIn 0.8s ease both; }
+    .hero h1               { animation: fadeUp 0.9s 0.15s ease both; }
+    .hero p                { animation: fadeUp 0.9s 0.3s  ease both; }
+    .hero .btn             { animation: fadeUp 0.9s 0.45s ease both; }
+
+    /* Shimmer on hero title */
+    .hero h1 {
+      background: linear-gradient(
+        105deg,
+        #f0e6ff 0%,
+        #c084fc 30%,
+        #f5d0fe 50%,
+        #c084fc 70%,
+        #e8b4f8 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeUp 0.9s 0.15s ease both, shimmer 4s 1.2s linear infinite;
+    }
+
+    /* Celestial label pulse */
+    .celestial-label svg {
+      animation: twinkle 2.5s ease-in-out infinite;
+    }
+    .celestial-label svg:last-child {
+      animation-delay: 1.25s;
+    }
+
+    /* Floating hero CTA */
+    .hero .btn-primary {
+      animation: fadeUp 0.9s 0.45s ease both, floatY 4s 1.5s ease-in-out infinite;
+    }
+
+    /* Hero background animated glow */
+    .hero::before {
+      background: radial-gradient(
+        ellipse 70% 55% at 50% 30%,
+        rgba(168,85,247,0.15) 0%,
+        transparent 70%
+      );
+      animation: orbitGlow 5s ease-in-out infinite;
+    }
+
+    /* Canvas stars overlay */
+    #star-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body > *:not(#star-canvas) { position: relative; z-index: 1; }
+
+    /* Scroll reveal — elements start hidden */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered reveal for grid children */
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0s; }
+    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.12s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.24s; }
+
+    /* Card hover lift + glow */
+    .testimonial-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(168,85,247,0.15);
+      border-color: rgba(192,132,252,0.4);
+    }
+
+    .pricing-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(168,85,247,0.18);
+    }
+
+    /* Popular card continuous border pulse */
+    .pricing-card.popular {
+      animation: borderPulse 3s ease-in-out infinite;
+    }
+
+    /* Button ripple */
+    .btn { position: relative; overflow: hidden; }
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.25) 0%, transparent 70%);
+      transform: scale(0);
+      opacity: 0;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      border-radius: inherit;
+    }
+    .btn:active::after {
+      transform: scale(2.5);
+      opacity: 1;
+      transition: 0s;
+    }
+
+    /* Nav logo star spin on hover */
+    .nav-logo svg, .footer-logo svg {
+      transition: transform 0.4s ease;
+    }
+    .nav-logo:hover svg, .footer-logo:hover svg {
+      transform: rotate(72deg) scale(1.2);
+    }
+
+    /* Star rating pop-in */
+    .stars svg {
+      animation: starPop 0.4s ease both;
+    }
+    .stars svg:nth-child(1) { animation-delay: 0.05s; }
+    .stars svg:nth-child(2) { animation-delay: 0.12s; }
+    .stars svg:nth-child(3) { animation-delay: 0.19s; }
+    .stars svg:nth-child(4) { animation-delay: 0.26s; }
+    .stars svg:nth-child(5) { animation-delay: 0.33s; }
+
+    /* Section heading underline sweep */
+    .section-header h2 {
+      position: relative;
+      display: inline-block;
+    }
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+      transform: translateX(-50%) scaleX(0);
+      width: 60%;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transition: transform 0.6s ease;
+      transform-origin: center;
+    }
+    .section-header.visible h2::after,
+    .reveal.visible .section-header h2::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      Terra's Readings
+    </a>
+    <ul class="nav-links">
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#pricing" class="btn btn-primary">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="celestial-label">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      Celestial Guidance
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+    </div>
+    <h1>Terra's<br>Readings</h1>
+    <p>Unlock the wisdom written in your stars. Personalized astrology readings to illuminate your path forward.</p>
+    <a href="#pricing" class="btn btn-primary">Book Your Reading</a>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>What the Stars Revealed</h2>
+        <p>Hear from those who've had their charts read by Terra.</p>
+      </div>
+      <div class="testimonials-grid reveal-stagger">
+        <div class="testimonial-card">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <p>"I was skeptical but decided to try the basic reading. It gave me real clarity about a relationship I'd been struggling with for months."</p>
+          <span class="author">— Damon B.</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <p>"The in-depth reading was worth every penny. Terra took the time to explain my entire chart and I still reference it weeks later."</p>
+          <span class="author">— Lena S.</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <p>"Terra's reading was eerily accurate. She picked up on things about my career shift that I hadn't told anyone. Truly gifted."</p>
+          <span class="author">— Mira K.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Choose Your Journey</h2>
+        <p>Every reading is crafted personally by Terra, guided by the stars.</p>
+      </div>
+      <div class="pricing-grid reveal-stagger">
+
+        <!-- Basic -->
+        <div class="pricing-card">
+          <div class="plan-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <h3>Basic Reading</h3>
+          <p class="plan-desc">A focused snapshot of your cosmic energy</p>
+          <div class="price">
+            <span class="amount">$15</span>
+            <span class="per">/ reading</span>
+          </div>
+          <ul class="feature-list">
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Sun, Moon &amp; Rising sign analysis
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Current transit overview
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Key themes for the month ahead
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Delivered within 48 hours
+            </li>
+          </ul>
+          <a href="#" class="btn btn-outline">Book Now</a>
+        </div>
+
+        <!-- In-Depth (Popular) -->
+        <div class="pricing-card popular">
+          <div class="popular-badge">Most Popular</div>
+          <div class="plan-icon">
+            <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--gold-light)"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--gold-light)"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <h3>In-Depth Reading</h3>
+          <p class="plan-desc">A full map of your celestial blueprint</p>
+          <div class="price">
+            <span class="amount">$30</span>
+            <span class="per">/ reading</span>
+          </div>
+          <ul class="feature-list">
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Complete natal chart breakdown
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Detailed transit &amp; progression report
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Love, career &amp; growth insights
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Personalized ritual recommendations
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Follow-up Q&amp;A included
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Delivered within 72 hours
+            </li>
+          </ul>
+          <a href="#" class="btn btn-primary">Book Now</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STAR CANVAS -->
+  <canvas id="star-canvas"></canvas>
+
+  <!-- FOOTER -->
+  <footer>
+    <a class="footer-logo" href="#">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      Terra's Readings
+    </a>
+    <p>© 2026 Terra's Readings. All rights reserved.</p>
+  </footer>
+
+  <script>
+    /* ── TWINKLING STAR FIELD ── */
+    (function () {
+      const canvas = document.getElementById('star-canvas');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = document.body.scrollHeight;
+      }
+
+      function initStars(n = 180) {
+        stars = Array.from({ length: n }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.4 + 0.3,
+          alpha: Math.random(),
+          speed: Math.random() * 0.008 + 0.003,
+          dir: Math.random() > 0.5 ? 1 : -1,
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          s.alpha += s.speed * s.dir;
+          if (s.alpha >= 1 || s.alpha <= 0) s.dir *= -1;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(220, 200, 255, ${s.alpha})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      initStars();
+      draw();
+
+      window.addEventListener('resize', () => { resize(); initStars(); });
+    })();
+
+    /* ── SCROLL REVEAL ── */
+    (function () {
+      const observer = new IntersectionObserver(
+        entries => entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        }),
+        { threshold: 0.15 }
+      );
+
+      document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+        observer.observe(el);
+      });
+    })();
+  </script>
+</body>
+</html>
