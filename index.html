@@ -140,6 +140,84 @@
       pointer-events: none;
     }
 
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 110;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE NAV ── */
+    @media (max-width: 600px) {
+      nav {
+        padding: 0 1.25rem;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 56px;
+      }
+
+      .nav-logo {
+        font-size: 1.6rem;
+        padding-top: 0.2em;
+        padding: 0.75rem 0;
+      }
+
+      .nav-hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        width: 100%;
+        padding: 0.5rem 0 1rem;
+        border-top: 1px solid rgba(212, 168, 67, 0.15);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-service-item {
+        height: auto;
+        padding: 0.65rem 0;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 0.5rem;
+      }
+
+      .nav-chevron {
+        position: static;
+        transform: none;
+      }
+
+      .nav-links li {
+        width: 100%;
+        padding: 0.55rem 0;
+      }
+    }
+
     .btn {
       display: inline-block;
       font-family: 'Montserrat', sans-serif;
@@ -624,6 +702,11 @@
   <!-- NAV -->
   <nav>
     <a class="nav-logo" href="#">Earth and Stars</a>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     <ul class="nav-links">
       <li class="nav-service-item">
         <span class="nav-service">Terra's Readings</span>
@@ -826,6 +909,17 @@
       draw();
 
       window.addEventListener('resize', () => { resize(); initStars(); });
+    })();
+
+    /* ── MOBILE NAV TOGGLE ── */
+    (function () {
+      const btn = document.querySelector('.nav-hamburger');
+      const links = document.querySelector('.nav-links');
+      btn.addEventListener('click', () => {
+        const open = links.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open);
+      });
     })();
 
     /* ── SCROLL REVEAL ── */
