@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terra's Readings</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <title>Earth 'N' Stars</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -37,33 +37,30 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(26, 21, 32, 0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(14, 9, 4, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212, 168, 67, 0.2);
+      box-shadow: 0 1px 24px rgba(0,0,0,0.4);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 2.5rem;
-      height: 60px;
+      height: 64px;
     }
 
     .nav-logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: var(--gold);
+      text-decoration: none;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      text-decoration: none;
+      padding-top: 0.3em;
     }
-
-    .nav-logo svg {
-      width: 18px;
-      height: 18px;
-      fill: var(--gold);
-    }
+    .nav-logo:hover { color: var(--gold-light); }
 
     .nav-links {
       display: flex;
@@ -76,13 +73,72 @@
       font-family: 'Montserrat', sans-serif;
       font-size: 0.85rem;
       font-weight: 500;
-      color: var(--text);
+      color: #c8b89a;
       text-decoration: none;
       letter-spacing: 0.03em;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    .nav-service-item {
+      position: relative;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-links .nav-service {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, #f0e6ff 0%, #c084fc 45%, #e8b4f8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links .nav-service:hover {
+      background: linear-gradient(135deg, #fff 0%, #d8a8ff 45%, #f5d0fe 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .nav-chevron {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b5c80;
+      transition: color 0.2s, transform 0.2s;
+      line-height: 1;
+    }
+    .nav-chevron svg {
+      width: 10px;
+      height: 10px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .nav-chevron:hover {
+      color: var(--accent);
+    }
+
+    .nav-links .nav-soon {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: #4a4050;
+      letter-spacing: 0.06em;
+      cursor: default;
+      pointer-events: none;
+    }
 
     .btn {
       display: inline-block;
@@ -105,7 +161,7 @@
     }
     .btn-primary:hover {
       background: var(--accent-btn-hover);
-      transform: translateY(-1px);
+      animation: btnBounce 0.38s ease;
     }
 
     .btn-outline {
@@ -113,12 +169,12 @@
       color: var(--text);
       border: 1.5px solid var(--border);
     }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); animation: btnBounce 0.38s ease; }
 
     /* ── HERO ── */
     .hero {
       text-align: center;
-      padding: 7rem 1.5rem 6rem;
+      padding: 6rem 1.5rem 6rem;
       position: relative;
       overflow: hidden;
     }
@@ -127,8 +183,45 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 55% at 50% 30%, rgba(168, 85, 247, 0.12) 0%, transparent 70%);
       pointer-events: none;
+      background: radial-gradient(ellipse 70% 55% at 50% 30%, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+      animation: orbitGlow 5s ease-in-out infinite;
+    }
+
+    .hero-company {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.8rem, 10vw, 6.5rem);
+      color: var(--gold);
+      line-height: 1.1;
+      animation: fadeIn 0.9s ease both;
+    }
+
+    .hero-separator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.1rem auto;
+      max-width: 320px;
+      animation: fadeIn 0.9s 0.18s ease both;
+    }
+
+    .hero-separator span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .hero-separator::before,
+    .hero-separator::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
 
     .celestial-label {
@@ -141,35 +234,52 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.2rem;
+      animation: fadeIn 0.9s 0.36s ease both;
     }
 
     .celestial-label svg {
       width: 12px;
       height: 12px;
       fill: var(--gold);
+      animation: twinkle 2.5s ease-in-out infinite;
     }
+    .celestial-label svg:last-child { animation-delay: 1.25s; }
 
     .hero h1 {
       font-family: 'Cinzel', serif;
-      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-size: clamp(2.6rem, 6.5vw, 4.5rem);
       font-weight: 700;
       line-height: 1.05;
       letter-spacing: 0.02em;
-      background: linear-gradient(135deg, #f0e6ff 0%, #c084fc 45%, #e8b4f8 100%);
+      background: linear-gradient(
+        105deg,
+        #f0e6ff 0%,
+        #c084fc 30%,
+        #f5d0fe 50%,
+        #c084fc 70%,
+        #e8b4f8 100%
+      );
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 1.5rem;
+      animation: fadeUp 0.9s 0.5s ease both, shimmer 4s 1.6s linear infinite;
     }
 
     .hero p {
       font-size: 1rem;
       font-weight: 400;
       color: var(--text-muted);
-      max-width: 480px;
+      max-width: 700px;
       margin: 0 auto 2.5rem;
       line-height: 1.7;
+      animation: fadeUp 0.9s 0.65s ease both;
+    }
+
+    .hero .btn {
+      animation: fadeUp 0.9s 0.8s ease both, floatY 4s 1.8s ease-in-out infinite;
     }
 
     /* ── SECTION SHARED ── */
@@ -194,6 +304,24 @@
       letter-spacing: 0.02em;
       color: var(--text);
       margin-bottom: 0.6rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+      transform: translateX(-50%) scaleX(0);
+      width: 60%;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transition: transform 0.6s ease;
+      transform-origin: center;
+    }
+    .section-header.visible h2::after {
+      transform: translateX(-50%) scaleX(1);
     }
 
     .section-header p {
@@ -202,90 +330,58 @@
       font-weight: 400;
     }
 
-    /* ── STARS ── */
-    .stars {
-      display: flex;
-      gap: 2px;
-      margin-bottom: 0.75rem;
-    }
-
-    .stars svg {
-      width: 14px;
-      height: 14px;
-      fill: var(--gold);
-    }
-
-    /* ── TESTIMONIALS ── */
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .testimonial-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem 1.4rem;
-    }
-
-    .testimonial-card p {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-      margin-bottom: 1rem;
-    }
-
-    .testimonial-card .author {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: 0.04em;
-    }
-
     /* ── PRICING ── */
+    #pricing .section-inner {
+      max-width: 1200px;
+    }
+
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      align-items: start;
+      grid-template-columns: 1fr 1fr 1.6fr 1.6fr;
+      gap: 1.1rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .pricing-grid { grid-template-columns: 1fr; }
     }
 
     .pricing-card {
       background: var(--bg-card2);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 2rem 1.75rem 2.5rem;
+      padding: 1rem 1.75rem 2.5rem;
       position: relative;
     }
 
-    .pricing-card.popular {
+
+    .pricing-card.featured {
       border-color: var(--accent-btn);
+      animation: borderPulse 3s ease-in-out infinite;
     }
 
-    .popular-badge {
+    .card-stars {
       position: absolute;
-      top: -0.6rem;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent-btn);
-      color: #fff;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.85rem;
-      border-radius: 999px;
+      top: 1rem;
+      left: 1rem;
+      display: flex;
+      gap: 3px;
     }
 
-    .pricing-card .plan-icon {
-      margin-bottom: 0.6rem;
-    }
-
-    .pricing-card .plan-icon svg {
-      width: 20px;
-      height: 20px;
+    .card-stars svg {
+      width: 14px;
+      height: 14px;
       fill: var(--gold);
+      opacity: 0.85;
+    }
+
+    .pricing-card.expanded .card-stars svg {
+      width: 16px;
+      height: 16px;
     }
 
     .pricing-card h3 {
@@ -294,20 +390,22 @@
       font-weight: 700;
       letter-spacing: 0.03em;
       color: var(--text);
-      margin-bottom: 0.25rem;
+      margin-top: 1.75rem;
+      margin-bottom: 0.35rem;
     }
 
     .pricing-card .plan-desc {
       font-size: 0.78rem;
       color: var(--text-muted);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
     }
 
     .price {
       display: flex;
       align-items: baseline;
       gap: 0.25rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .price .amount {
@@ -323,28 +421,85 @@
       font-weight: 400;
     }
 
+    /* Smaller left cards */
+    .pricing-card.compact {
+      padding: 1rem 1.25rem 1.75rem;
+    }
+
+    .pricing-card.compact h3 {
+      font-size: 0.88rem;
+    }
+
+    .pricing-card.compact .plan-desc {
+      font-size: 0.72rem;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-card.compact .price {
+      margin-bottom: 1.25rem;
+    }
+
+    .pricing-card.compact .price .amount {
+      font-size: 1.55rem;
+    }
+
+    .pricing-card.compact .feature-list {
+      margin-bottom: 1.5rem;
+      gap: 0.4rem;
+    }
+
+    .pricing-card.compact .feature-list li {
+      font-size: 0.74rem;
+    }
+
+    /* Larger right cards */
+    .pricing-card.expanded {
+      padding: 1rem 2rem 2.75rem;
+    }
+
+    .pricing-card.expanded h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-card.expanded .plan-desc {
+      font-size: 0.84rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .pricing-card.expanded .price .amount {
+      font-size: 2.2rem;
+    }
+
     .feature-list {
       list-style: none;
       margin-bottom: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.55rem;
     }
 
     .feature-list li {
       display: flex;
       align-items: flex-start;
       gap: 0.55rem;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
+      line-height: 1.5;
     }
 
     .feature-list li svg {
-      width: 13px;
-      height: 13px;
+      width: 12px;
+      height: 12px;
       fill: var(--gold);
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 3px;
+    }
+
+    .feature-list .feature-note {
+      font-size: 0.72rem;
+      color: #5a5070;
+      font-style: italic;
     }
 
     .pricing-card .btn {
@@ -364,20 +519,11 @@
     }
 
     footer .footer-logo {
-      font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.75rem;
+      color: var(--gold);
       text-decoration: none;
-    }
-
-    footer .footer-logo svg {
-      width: 15px;
-      height: 15px;
-      fill: var(--gold);
+      line-height: 1;
     }
 
     footer p {
@@ -386,8 +532,6 @@
     }
 
     /* ── ANIMATIONS ── */
-
-    /* Keyframes */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(32px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -413,65 +557,16 @@
       50%  { box-shadow: 0 0 40px 8px rgba(168,85,247,0.18); }
       100% { box-shadow: 0 0 0 0 rgba(168,85,247,0); }
     }
-    @keyframes starPop {
-      0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
-      60%  { transform: scale(1.3) rotate(5deg); opacity: 1; }
-      100% { transform: scale(1) rotate(0deg);   opacity: 1; }
+    @keyframes btnBounce {
+      0%   { transform: translateY(0); }
+      30%  { transform: translateY(-5px); }
+      65%  { transform: translateY(-2px); }
+      100% { transform: translateY(0); }
     }
-    @keyframes gradientShift {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+
     @keyframes borderPulse {
       0%, 100% { border-color: var(--accent-btn); }
       50%       { border-color: #e879f9; box-shadow: 0 0 20px rgba(232,121,249,0.25); }
-    }
-
-    /* Hero entrance sequence */
-    .hero .celestial-label { animation: fadeIn 0.8s ease both; }
-    .hero h1               { animation: fadeUp 0.9s 0.15s ease both; }
-    .hero p                { animation: fadeUp 0.9s 0.3s  ease both; }
-    .hero .btn             { animation: fadeUp 0.9s 0.45s ease both; }
-
-    /* Shimmer on hero title */
-    .hero h1 {
-      background: linear-gradient(
-        105deg,
-        #f0e6ff 0%,
-        #c084fc 30%,
-        #f5d0fe 50%,
-        #c084fc 70%,
-        #e8b4f8 100%
-      );
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: fadeUp 0.9s 0.15s ease both, shimmer 4s 1.2s linear infinite;
-    }
-
-    /* Celestial label pulse */
-    .celestial-label svg {
-      animation: twinkle 2.5s ease-in-out infinite;
-    }
-    .celestial-label svg:last-child {
-      animation-delay: 1.25s;
-    }
-
-    /* Floating hero CTA */
-    .hero .btn-primary {
-      animation: fadeUp 0.9s 0.45s ease both, floatY 4s 1.5s ease-in-out infinite;
-    }
-
-    /* Hero background animated glow */
-    .hero::before {
-      background: radial-gradient(
-        ellipse 70% 55% at 50% 30%,
-        rgba(168,85,247,0.15) 0%,
-        transparent 70%
-      );
-      animation: orbitGlow 5s ease-in-out infinite;
     }
 
     /* Canvas stars overlay */
@@ -484,7 +579,7 @@
 
     body > *:not(#star-canvas) { position: relative; z-index: 1; }
 
-    /* Scroll reveal — elements start hidden */
+    /* Scroll reveal */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -495,38 +590,15 @@
       transform: translateY(0);
     }
 
-    /* Staggered reveal for grid children */
     .reveal-stagger > * {
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.55s ease, transform 0.55s ease;
     }
     .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0s; }
-    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.12s; }
-    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.24s; }
-
-    /* Card hover lift + glow */
-    .testimonial-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-    .testimonial-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(168,85,247,0.15);
-      border-color: rgba(192,132,252,0.4);
-    }
-
-    .pricing-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .pricing-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(168,85,247,0.18);
-    }
-
-    /* Popular card continuous border pulse */
-    .pricing-card.popular {
-      animation: borderPulse 3s ease-in-out infinite;
-    }
+    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.1s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.2s; }
+    .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.3s; }
 
     /* Button ripple */
     .btn { position: relative; overflow: hidden; }
@@ -545,198 +617,159 @@
       opacity: 1;
       transition: 0s;
     }
-
-    /* Nav logo star spin on hover */
-    .nav-logo svg, .footer-logo svg {
-      transition: transform 0.4s ease;
-    }
-    .nav-logo:hover svg, .footer-logo:hover svg {
-      transform: rotate(72deg) scale(1.2);
-    }
-
-    /* Star rating pop-in */
-    .stars svg {
-      animation: starPop 0.4s ease both;
-    }
-    .stars svg:nth-child(1) { animation-delay: 0.05s; }
-    .stars svg:nth-child(2) { animation-delay: 0.12s; }
-    .stars svg:nth-child(3) { animation-delay: 0.19s; }
-    .stars svg:nth-child(4) { animation-delay: 0.26s; }
-    .stars svg:nth-child(5) { animation-delay: 0.33s; }
-
-    /* Section heading underline sweep */
-    .section-header h2 {
-      position: relative;
-      display: inline-block;
-    }
-    .section-header h2::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: -6px;
-      transform: translateX(-50%) scaleX(0);
-      width: 60%;
-      height: 1.5px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      transition: transform 0.6s ease;
-      transform-origin: center;
-    }
-    .section-header.visible h2::after,
-    .reveal.visible .section-header h2::after {
-      transform: translateX(-50%) scaleX(1);
-    }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="#">
-      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-      Terra's Readings
-    </a>
+    <a class="nav-logo" href="#">Earth and Stars</a>
     <ul class="nav-links">
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#pricing" class="btn btn-primary">Book Now</a></li>
+      <li class="nav-service-item">
+        <span class="nav-service">Terra's Readings</span>
+        <a href="#" class="nav-chevron" aria-label="Open Terra's Readings">
+          <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+        </a>
+      </li>
+      <li><span class="nav-soon">Coming Soon</span></li>
+      <li><span class="nav-soon">Coming Soon</span></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="celestial-label">
-      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-      Celestial Guidance
-      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-    </div>
-    <h1>Terra's<br>Readings</h1>
-    <p>Unlock the wisdom written in your stars. Personalized astrology readings to illuminate your path forward.</p>
+    <h1>Terra's Readings</h1>
+    <p>My name is Terra and I am a self-taught astrologer primarily focused on modern, western, tropical astrology. I am genuinely interested in helping you learn more about yourself and discover what the planets have planned for you.</p>
     <a href="#pricing" class="btn btn-primary">Book Your Reading</a>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section id="testimonials">
-    <div class="section-inner">
-      <div class="section-header reveal">
-        <h2>What the Stars Revealed</h2>
-        <p>Hear from those who've had their charts read by Terra.</p>
-      </div>
-      <div class="testimonials-grid reveal-stagger">
-        <div class="testimonial-card">
-          <div class="stars">
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-          </div>
-          <p>"I was skeptical but decided to try the basic reading. It gave me real clarity about a relationship I'd been struggling with for months."</p>
-          <span class="author">— Damon B.</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars">
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-          </div>
-          <p>"The in-depth reading was worth every penny. Terra took the time to explain my entire chart and I still reference it weeks later."</p>
-          <span class="author">— Lena S.</span>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars">
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-          </div>
-          <p>"Terra's reading was eerily accurate. She picked up on things about my career shift that I hadn't told anyone. Truly gifted."</p>
-          <span class="author">— Mira K.</span>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- PRICING -->
   <section id="pricing">
     <div class="section-inner">
       <div class="section-header reveal">
-        <h2>Choose Your Journey</h2>
-        <p>Every reading is crafted personally by Terra, guided by the stars.</p>
+        <h2>Terra's Readings</h2>
       </div>
       <div class="pricing-grid reveal-stagger">
 
-        <!-- Basic -->
-        <div class="pricing-card">
-          <div class="plan-icon">
+        <!-- Ask the Stars? -->
+        <div class="pricing-card compact">
+          <div class="card-stars">
             <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
           </div>
-          <h3>Basic Reading</h3>
-          <p class="plan-desc">A focused snapshot of your cosmic energy</p>
+          <h3>Ask the Stars?</h3>
+          <p class="plan-desc">Submit 2 questions and let the stars answer.</p>
           <div class="price">
-            <span class="amount">$15</span>
+            <span class="amount">$20</span>
             <span class="per">/ reading</span>
           </div>
           <ul class="feature-list">
             <li>
               <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Sun, Moon &amp; Rising sign analysis
+              2 questions answered
             </li>
             <li>
               <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Current transit overview
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Key themes for the month ahead
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Delivered within 48 hours
+              Love life, career, finances, family &amp; more
             </li>
           </ul>
-          <a href="#" class="btn btn-outline">Book Now</a>
+          <a href="#" class="btn btn-outline">Get Reading</a>
         </div>
 
-        <!-- In-Depth (Popular) -->
-        <div class="pricing-card popular">
-          <div class="popular-badge">Most Popular</div>
-          <div class="plan-icon">
-            <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--gold-light)"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-            <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--gold-light)"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+        <!-- Chiron: Wound & Gift Reading -->
+        <div class="pricing-card compact">
+          <div class="card-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
           </div>
-          <h3>In-Depth Reading</h3>
-          <p class="plan-desc">A full map of your celestial blueprint</p>
+          <h3>Chiron: Wound &amp; Gift</h3>
+          <p class="plan-desc">Where you carry pain, and where you carry power.</p>
           <div class="price">
-            <span class="amount">$30</span>
+            <span class="amount">$24</span>
             <span class="per">/ reading</span>
           </div>
           <ul class="feature-list">
             <li>
               <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Complete natal chart breakdown
+              Custom half-page PDF
             </li>
             <li>
               <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Detailed transit &amp; progression report
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Love, career &amp; growth insights
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Personalized ritual recommendations
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Follow-up Q&amp;A included
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              Delivered within 72 hours
+              Same day turnaround
             </li>
           </ul>
-          <a href="#" class="btn btn-primary">Book Now</a>
+          <a href="#" class="btn btn-outline">Get Reading</a>
+        </div>
+
+        <!-- Planetary Blueprint -->
+        <div class="pricing-card expanded">
+          <div class="card-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <h3>Planetary Blueprint</h3>
+          <p class="plan-desc">A written map of your chart's most defining patterns and placements.</p>
+          <div class="price">
+            <span class="amount">Custom</span>
+          </div>
+          <ul class="feature-list">
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Custom 1–2 page PDF
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Common themes &amp; key placements breakdown
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Life purpose section
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Email Q&amp;A included
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              1 week turnaround
+            </li>
+          </ul>
+          <a href="#" class="btn btn-outline">Get Reading</a>
+        </div>
+
+        <!-- Universal Vision -->
+        <div class="pricing-card expanded featured">
+          <div class="card-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <h3>Universal Vision</h3>
+          <p class="plan-desc">The full picture of every planet, every node, your complete astrological story.</p>
+          <div class="price">
+            <span class="amount">Custom</span>
+          </div>
+          <ul class="feature-list">
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Full natal chart explanation
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Common themes, key placements &amp; life purpose
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Includes lunar nodes &amp; all planets
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              PDF + 30+ minute video explanation
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              2 week turnaround
+            </li>
+          </ul>
+          <a href="#" class="btn btn-primary">Get Reading</a>
         </div>
 
       </div>
@@ -748,11 +781,8 @@
 
   <!-- FOOTER -->
   <footer>
-    <a class="footer-logo" href="#">
-      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-      Terra's Readings
-    </a>
-    <p>© 2026 Terra's Readings. All rights reserved.</p>
+    <a class="footer-logo" href="#">Earth and Stars</a>
+    <p>© 2026 Earth and Stars. All rights reserved.</p>
   </footer>
 
   <script>
